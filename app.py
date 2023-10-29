@@ -34,7 +34,13 @@ def main():
             "routes":{
                 "/all-duties": "Get all ragi duties for two weeks.",
                 "/today": "Get today's ragi duties."
-            }
+            },
+            "usage": "ragi-duties-api.onrender.com/all-duties",
+            "author": "0xharkirat",
+            "email": "info.sandhukirat23@gmail.com",
+            "data": "All data sourced from SGPC.NET",
+            "disclaimer": "Ragi list and duty timings may not be updated in realtime on SGPC.NET",
+            "thanks": "a 0xharkirat (Harkirat Singh) production."
 
         }), 200
         
