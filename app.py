@@ -40,7 +40,8 @@ def main():
             "email": "info.sandhukirat23@gmail.com",
             "data": "All data sourced from SGPC.NET",
             "disclaimer": "Ragi list and duty timings may not be updated in realtime on SGPC.NET",
-            "thanks": "a 0xharkirat (Harkirat Singh) production."
+            "thanks": "a 0xharkirat (Harkirat Singh) production.",
+            "extra": "Add any json viewer extension to your browser to format the response."
 
         }), 200
         
