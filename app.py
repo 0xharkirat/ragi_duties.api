@@ -1,6 +1,7 @@
 from datetime import date
 from flask import Flask, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 app.json.sort_keys = False
@@ -14,7 +15,14 @@ def main():
         
 
 # URL of the GitHub Gist raw JSON file
-        gist_url = "https://gist.githubusercontent.com/0xharkirat/587f68228c0a01ccf53d8339008d479f/raw/ca93c4a634f3f0a14f2469053565cdd093b45ee8/ragi_duties.json"
+        gist_url = get_raw_url()
+
+        if gist_url == 404:
+            return jsonify({
+            'error': 'Failed to get raw data',
+            'message': str(e)
+            }), 500
+
 
         
         response = requests.get(gist_url)
@@ -88,6 +96,41 @@ def today():
             'message': str(e)
             }), 500
 
+def get_raw_url():
+    try:
+        gist_id = "587f68228c0a01ccf53d8339008d479f"
+
+        # The filename you want to update in the Gist
+        filename = "ragi_duties.json"
+
+        # Your GitHub Personal Access Token
+        access_token = os.environ.get('GIST_ACCESS_KEY')
+
+        # URL of the GitHub Gist API endpoint
+        gist_url = f"https://api.github.com/gists/{gist_id}"
+
+        # New content to update the Gist file with
+        new_content = {
+            filename: {
+                "content": "New content goes here"
+            }
+        }
+
+        headers = {
+            "Authorization": f"token {access_token}"
+        }
+
+        # Get the current Gist data
+        response = requests.get(gist_url, headers=headers)
+
+        if response.status_code == 200:
+            gist_data = response.json()
+            return gist_data["files"]["ragi_duties.json"]['raw_url']
+        else:
+            return 404
+
+    except Exception as e:
+        return 404
 
 if __name__ == '__main__':
     app.run(debug=True)
